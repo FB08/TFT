@@ -1,0 +1,200 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+// DATABASE CODE
+
+model User {
+  id           String @id @default(cuid())
+  userId       String @unique
+  passwordHash String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+
+  students    Student[]
+  curriculums Curriculum[]
+  todos       Todo[]
+}
+
+enum Sex {
+  Male
+  Female
+}
+
+model Student {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  name        String?
+  age         Int?
+  sex         Sex?
+  address     String?
+  phone       String?
+  parentPhone String?
+  book        String?
+
+  memo String?
+
+  payRate Int?
+
+  startedAt DateTime @default(now())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+
+  patterns      LessonPattern[]
+  singleLessons SingleLesson[]
+  lessonRecords LessonRecord[]
+}
+
+model LessonPattern {
+  id String @id @default(cuid())
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+
+  startTime String //반복 시간
+  endTime   String
+
+  startDate DateTime // 수업 기간
+  endDate   DateTime?
+
+  rrule String // 반복 요일,주
+
+  exceptions LessonException[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+}
+
+model LessonException {
+  id String @id @default(cuid())
+
+  patternId String
+  pattern   LessonPattern @relation(fields: [patternId], references: [id])
+
+  originalStartAt DateTime
+
+  isCanceled Boolean @default(false)
+
+  newStartAt DateTime
+  newEndAt   DateTime?
+
+  createdAt DateTime @default(now())
+}
+
+model SingleLesson {
+  id String @id @default(cuid())
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+
+  startAt DateTime
+  endAt   DateTime
+
+  createdAt DateTime @default(now())
+}
+
+model LessonRecord {
+  id String @id @default(cuid())
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+
+  lessonStartAt DateTime
+
+  progress  String?
+  homeworks Homework[]
+  feedback  String?
+
+  createdAt DateTime @default(now())
+  todos     Todo[]
+}
+
+enum HomeworkStatus {
+  ASSIGNED
+  COMPLETE
+  CARRIED_OVER
+}
+
+model Homework {
+  id String @id @default(cuid())
+
+  lessonId String
+  lesson   LessonRecord @relation(fields: [lessonId], references: [id])
+
+  content String
+
+  status     HomeworkStatus @default(ASSIGNED)
+  assignedAt DateTime       @default(now())
+
+  carriedFromId String?
+  carriedFrom   Homework? @relation("HomeworkCarry", fields: [carriedFromId], references: [id])
+
+  carriedTo Homework[] @relation("HomeworkCarry")
+
+  createdAt DateTime @default(now())
+}
+
+model Curriculum {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  title       String
+  description String?
+
+  course     String?
+  book       String?
+  difficulty String?
+  memo       String?
+
+  lessons CurriculumLessons[]
+
+  createdAt DateTime @default(now())
+}
+
+model CurriculumLessons {
+  id String @id @default(cuid())
+
+  curriculumId String
+  curriculum   Curriculum @relation(fields: [curriculumId], references: [id])
+
+  description String?
+  progress    String?
+  homework    String?
+
+  order Int
+
+  createdAt DateTime @default(now())
+}
+
+model Todo {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  lessonId String?
+  lesson   LessonRecord? @relation(fields: [lessonId], references: [id])
+
+  content String
+
+  until DateTime?
+
+  createdAt DateTime @default(now())
+}
