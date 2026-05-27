@@ -9,118 +9,87 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
 
   const loginMutation = useLogin();
+
   const handleLogin = () => {
     loginMutation.mutate({ userId, password });
   };
 
   return (
-    <main className="min-h-screen bg-zinc-100 flex items-center justify-center px-4">
-      <div className="w-full max-w-xl border-[3px] border-black rounded-3xl bg-white p-10 shadow-sm">
+    <main className="min-h-screen bg-slate-900 flex items-center justify-center px-6">
+      <div className="w-full max-w-xl rounded-3xl bg-white/95 backdrop-blur p-10 shadow-2xl">
 
-        {/* profile */}
         <div className="flex flex-col items-center mb-10">
-          <div className="w-24 h-24 rounded-full border-2 border-black flex items-center justify-center text-4xl bg-zinc-50">
+          <div className="w-24 h-24 rounded-full bg-slate-100 flex items-center justify-center text-5xl shadow-inner">
             👤
           </div>
 
-          <h1 className="mt-4 text-2xl font-semibold text-zinc-900">
-            돌아오신걸 환영합니다
+          <h1 className="mt-5 text-3xl font-bold text-slate-800">
+            돌아오신 걸 환영합니다
           </h1>
 
-          <p className="mt-2 text-sm text-zinc-500">
+          <p className="mt-2 text-sm text-slate-500">
             로그인하고 수업 관리를 시작하세요
           </p>
         </div>
 
-        {/* form */}
-        <div className="border-2 border-blue-400 rounded-2xl p-8 space-y-6">
-
+        <div className="space-y-5">
           <div>
-            <label className="block text-sm font-medium mb-2 text-zinc-700">
+            <label className="block mb-2 text-sm font-medium text-slate-700">
               ID
             </label>
 
             <input
               type="text"
               value={userId}
-              onChange={(e) =>
-                setUserId(e.target.value)
-              }
-              placeholder="아이디를 입력하세요"
-              className="
-                w-full
-                rounded-xl
-                border
-                border-zinc-300
-                px-4
-                py-3
-                outline-none
-                focus:border-blue-500
-                transition
-              "
+              onChange={(e) => setUserId(e.target.value)}
+              placeholder="아이디"
+              className="w-full rounded-xl border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2 text-zinc-700">
-              PW
+            <label className="block mb-2 text-sm font-medium text-slate-700">
+              Password
             </label>
 
             <input
               type="password"
               value={password}
-              onChange={(e) =>
-                setPassword(e.target.value)
-              }
-              placeholder="비밀번호를 입력하세요"
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="비밀번호"
               onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleLogin();
-                }
+                if (e.key === "Enter") handleLogin();
               }}
-              className="
-                w-full
-                rounded-xl
-                border
-                border-zinc-300
-                px-4
-                py-3
-                outline-none
-                focus:border-blue-500
-                transition
-              "
+              className="w-full rounded-xl border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
-          <div className="flex justify-end pt-2">
-            <button
-              type="button"
-              onClick={handleLogin}
-              className="
-                text-lg
-                font-semibold
-                text-zinc-900
-                hover:translate-x-1
-                transition-transform
-              "
-              disabled={loginMutation.isPending}
-            >
-              {loginMutation.isPending ? 'login...' : 'login →'}
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={handleLogin}
+            disabled={loginMutation.isPending}
+            className="
+              w-full
+              rounded-xl
+              bg-blue-600
+              hover:bg-blue-700
+              active:scale-[0.98]
+              text-white
+              font-semibold
+              py-3
+              shadow-lg
+              transition
+            "
+          >
+            {loginMutation.isPending ? "로그인 중..." : "로그인"}
+          </button>
         </div>
 
-        {/* footer */}
-        <div className="mt-6 text-center text-sm text-zinc-500">
+        <div className="mt-6 text-center text-sm text-slate-500">
           계정이 없으신가요?{" "}
           <Link
             href="/signup"
-            className="
-              underline
-              underline-offset-4
-              hover:text-zinc-800
-              transition
-            "
+            className="text-blue-600 hover:text-blue-700 font-medium"
           >
             회원가입
           </Link>
