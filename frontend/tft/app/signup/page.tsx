@@ -14,20 +14,18 @@ const Signup = () => {
   }
   return (
     <div className="page-background">
-      <Toaster richColors position="top-center" />
       {/* 바깥쪽 검은색 큰 테두리 박스 */}
       <div className="outer-display-box">
         
         {/* 중앙 회원가입 카드 */}
         <div className="signup-card">
           
-          {/* 프로필 사진 표시 영역 (프사)
+          {/* 프로필 사진 표시 영역 (프사) */}
           <div className="profile-wrapper">
             <div className="profile-circle">
-              <span className="camera-icon">📷</span>
+              <span className="profile-icon">👤</span>
             </div>
-            <span className="profile-label">프사</span>
-          </div> */}
+          </div>
 
           {/* 파란색 테두리 입력 폼 박스 */}
           <div className="inner-form-box">
