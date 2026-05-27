@@ -1,19 +1,29 @@
-import { ConflictException, Injectable } from "@nestjs/common";
-import { SignUpDto } from "src/common/dto/auth/signup.dto";
+import { UnauthorizedException, ConflictException, Injectable } from "@nestjs/common";
+import { JWTPayload, SignUpDto, TokenAndCookieOptions } from "src/common/dto/auth/auth.dto";
 import { PrismaService } from "src/db/prisma.service";
 import * as bcrypt from 'bcrypt';
-import { toUserDTO } from "src/common/dto/users/user.dto";
+import { toUserDTO, User, UserDTO } from "src/common/dto/users/user.dto";
+import { UsersService } from "src/users/users.service";
+import { ConfigService } from "@nestjs/config";
+import { JwtService } from "@nestjs/jwt";
+import { RefreshTokenInvalidException } from "./refresh.exception";
+
 
 
 @Injectable()
 export class AuthService {
-    constructor(private prisma: PrismaService) {}
+    constructor(
+        private readonly prisma: PrismaService,
+        private readonly usersService: UsersService,
+        private readonly configService: ConfigService,
+        private readonly jwtService: JwtService
+    ) {}
 
-    async signup(dto: SignUpDto) {
-        const { loginId, password, name } = dto;
+    async createUser(dto: SignUpDto): Promise<User> {
+        const { userId, password, name } = dto;
 
         const existUserId = await this.prisma.user.findUnique({
-            where: { id: loginId },
+            where: { userId },
         })
 
         if (existUserId) {
@@ -24,13 +34,58 @@ export class AuthService {
 
         const user = await this.prisma.user.create({
             data: {
-                userId: loginId,
+                userId,
                 passwordHash,
                 refreshTokenHash: "",
                 name
             }
         });
 
-        return toUserDTO({id: user.id, userId: user.userId, name: user.name});
+        return user;
+    }
+
+    async validateUser(userId: string, password: string): Promise<User | null> {
+        const user = await this.usersService.getByUserId(userId);
+        if (await bcrypt.compare(password, user.passwordHash)) {
+            return user;
+        }
+        throw new UnauthorizedException('비밀번호가 일치하지 않습니다.');
+    }
+
+    async validateRefreshTokeAndGenerateAccessToken(id: string, refreshToken: string) {
+        const user = await this.usersService.getById(id);
+        if (!user || user.refreshTokenHash !== refreshToken) {
+            throw new RefreshTokenInvalidException();
+        }
+        const payload: JWTPayload = { id: user.id };
+        return {
+            ...payload,
+            access: this.getAccessTokenAndOptions(payload)
+        };
+    }
+
+    getAccessTokenAndOptions(payload: JWTPayload): TokenAndCookieOptions {
+        const secret = this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET');
+        const expiresInSec = this.configService.get<number>('JWT_ACCESS_TOKEN_EXP_SEC')!;
+        const domain = this.configService.get<string>('COOKIE_DOMAIN')!;
+
+        const token = this.jwtService.sign(payload, {
+             secret, 
+             expiresIn: expiresInSec });
+
+             return { token, options: {domain, path: '/', httpOnly: true, maxAge: expiresInSec * 1000 }};
+    }
+
+    getRefreshTokenAndOptions(payload: JWTPayload): TokenAndCookieOptions {
+        const secret = this.configService.get<string>('JWT_REFRESH_TOKEN_SECRET');
+        const expiresInSec = this.configService.get<number>('JWT_REFRESH_TOKEN_EXP_SEC')!;
+        const domain = this.configService.get<string>('COOKIE_DOMAIN')!;
+
+        const token = this.jwtService.sign(payload, {
+            secret,
+            expiresIn: expiresInSec
+        });
+
+        return { token, options: { domain, path: '/', httpOnly: true, maxAge: expiresInSec * 1000 } };
     }
 }

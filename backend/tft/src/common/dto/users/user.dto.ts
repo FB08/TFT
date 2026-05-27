@@ -1,5 +1,8 @@
 import { IsNotEmpty, IsString } from "class-validator";
+import { user } from "generated/browser";
 
+export type User =  user;
+    
 export class UserDTO {
     @IsNotEmpty()
     @IsString()
@@ -15,7 +18,7 @@ export class UserDTO {
 
 }
 
-export function toUserDTO(user: UserDTO): UserDTO {
+export function toUserDTO(user: User): UserDTO {
     return {
         id: user.id,
         userId: user.userId,
