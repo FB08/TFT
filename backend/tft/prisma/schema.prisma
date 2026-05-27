@@ -160,6 +160,7 @@ enum homework_status {
   ASSIGNED
   COMPLETE
   CARRIED_OVER
+  CANCELED
 }
 
 enum student_sex {
