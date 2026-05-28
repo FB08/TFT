@@ -64,6 +64,17 @@ export class AuthService {
         };
     }
 
+    async changePassword(id: string, currentPassword: string, newPassword: string) {
+        const user = await this.usersService.getById(id);
+        if (!await bcrypt.compare(currentPassword, user.passwordHash)) throw new UnauthorizedException('현재 비밀번호가 일치하지 않습니다.');
+        const newHash = await bcrypt.hash(newPassword, 10);
+        await this.prisma.user.update({
+            where: { id },
+            data: { passwordHash: newHash }
+        });
+        return user;
+    }
+
     getAccessTokenAndOptions(payload: JWTPayload): TokenAndCookieOptions {
         const secret = this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET');
         const expiresInSec = this.configService.get<number>('JWT_ACCESS_TOKEN_EXP_SEC')!;
@@ -71,9 +82,9 @@ export class AuthService {
 
         const token = this.jwtService.sign(payload, {
              secret, 
-             expiresIn: expiresInSec });
+             expiresIn: expiresInSec*1000 });
 
-             return { token, options: {domain, path: '/', httpOnly: true, maxAge: expiresInSec * 1000 }};
+        return { token, options: {domain, path: '/', httpOnly: true, maxAge: expiresInSec * 1000 }};
     }
 
     getRefreshTokenAndOptions(payload: JWTPayload): TokenAndCookieOptions {

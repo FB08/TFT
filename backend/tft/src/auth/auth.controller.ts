@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards, Req, Res } from "@nestjs/common";
+import { Body, Controller, Post, UseGuards, Req, Res, Patch } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { SignUpDto } from "src/common/dto/auth/auth.dto";
 import { toUserDTO, User, UserDTO } from "src/common/dto/users/user.dto";
@@ -7,6 +7,7 @@ import { UsersService } from "src/users/users.service";
 import { Request, Response } from "express";
 import { JwtAuthGuard } from "./guard/jwt.guard";
 import { RefreshAuthGuard } from "./guard/refresh.guard";
+import { JWTUser } from "src/common/decorators/jwtuser.decorator";
 
 @Controller('auth')
 export class AuthController {
@@ -31,6 +32,12 @@ export class AuthController {
     @UseGuards(RefreshAuthGuard)
     async refresh(@Req() req: Request & { user: User }, @Res({ passthrough: true }) res: Response){
         return await this.authService.validateRefreshTokeAndGenerateAccessToken(req.user.id, req.cookies.refresh);
+    }
+ 
+    @Patch('password')
+    @UseGuards(JwtAuthGuard)
+    async changePassword(@JWTUser() user, @Body() body: { currentPassword: string, newPassword: string }) {
+        return toUserDTO(await this.authService.changePassword(user.id, body.currentPassword, body.newPassword));
     }
 
     private async setupTokens(user: User, res: Response) {

@@ -1,31 +1,45 @@
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
-// 1. 현재 에러가 없는 원래의 생성 경로 그대로 가져옵니다.
-import { PrismaClient } from '../../generated/client'; 
+import { PrismaClient } from '../../generated/client';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
+import { softDeleteExtension } from './prisma.extension';
 
 @Injectable()
-export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
+export class PrismaService implements OnModuleInit, OnModuleDestroy {
+  // extends 대신 private 인스턴스로 보유
+  private readonly prisma: ReturnType<PrismaClient['$extends']>;
+
+  // 외부에서 prisma.user.findMany() 식으로 쓸 수 있게 Proxy로 위임
+  [key: string]: any;
+
   constructor() {
-    // 2. 어댑터가 요구하는 정확한 PoolConfig 타입에 맞춰 정보를 기입합니다.
-    // 본인의 실제 DB 접속 정보에 맞게 아래 내용을 직접 수정해 주세요!
     const adapter = new PrismaMariaDb({
-      host: 'localhost',       // 예: '127.0.0.1' 또는 실제 DB 호스트
-      port: 3306,              // MySQL 기본 포트
-      user: 'root',            // DB 유저명 (예: 'root')
-      password: '1234',    // DB 비밀번호
-      database: 'tft',// 연결할 데이터베이스 이름
-      connectionLimit: 20,     // 기본 커넥션 풀 개수
+      host: 'localhost',
+      port: 3306,
+      user: 'root',
+      password: '1234',
+      database: 'tft',
+      connectionLimit: 20,
     });
 
-    // 3. Prisma 7 생성자에 어댑터를 주입합니다.
-    super({ adapter });
+    const client = new PrismaClient({ adapter });
+
+    // extension 적용
+    this.prisma = client.$extends(softDeleteExtension);
+
+    // Proxy로 this.user, this.post 등 모델 접근 위임
+    return new Proxy(this, {
+      get(target, prop) {
+        if (prop in target) return (target as any)[prop];
+        return (target.prisma as any)[prop];
+      },
+    });
   }
 
   async onModuleInit() {
-    await this.$connect();
+    await (this.prisma as any).$connect();
   }
 
   async onModuleDestroy() {
-    await this.$disconnect();
+    await (this.prisma as any).$disconnect();
   }
 }

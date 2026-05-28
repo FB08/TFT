@@ -20,7 +20,6 @@ type Props = {
 };
 
 export default function LessonModal({ open, onOpenChange, selectedDate, lesson }: Props) {
-  console.log("wtf??")
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg rounded-2xl">

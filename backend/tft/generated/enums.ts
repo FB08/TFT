@@ -12,7 +12,8 @@
 export const homework_status = {
   ASSIGNED: 'ASSIGNED',
   COMPLETE: 'COMPLETE',
-  CARRIED_OVER: 'CARRIED_OVER'
+  CARRIED_OVER: 'CARRIED_OVER',
+  CANCELED: 'CANCELED'
 } as const
 
 export type homework_status = (typeof homework_status)[keyof typeof homework_status]
