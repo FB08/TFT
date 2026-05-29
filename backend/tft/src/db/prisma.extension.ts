@@ -10,14 +10,6 @@ export const softDeleteExtension = {
         return query(args);
       },
 
-      findFirst({ args, query }) {
-        args.where = {
-          ...args.where,
-          deletedAt: null,
-        };
-
-        return query(args);
-      },
 
       findUnique({ args, query }) {
         return query({

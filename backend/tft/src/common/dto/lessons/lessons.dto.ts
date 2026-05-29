@@ -1,0 +1,89 @@
+import { Type } from 'class-transformer';
+import { IsString, IsDate, IsOptional } from 'class-validator';
+
+export class patternDTO { // 패턴에 대한 구체적 정보
+    @IsOptional()
+    @IsString()
+    id?: string;
+
+    @IsString()
+    studentId: string;
+
+    @IsString()
+    startTime: string;
+
+    @IsString()
+    endTime: string;
+
+    @Type(()=>Date)
+    @IsDate()
+    startRecur: Date;
+
+    @IsOptional()
+    @Type(()=>Date)
+    @IsDate()
+    endRecur?: Date;
+
+    @IsString()
+    rrule: string;
+
+} // 패턴: 만들기, 조회하기, 수정하기, 삭제하기
+
+
+export function toPatternDTO(pattern: any) {
+    return {
+        id: pattern.id,
+        studentId: pattern.studentId,
+
+        startTime: pattern.startTime,
+        endTime: pattern.endTime,
+
+        startRecur: pattern.startRecur,
+        endRecur: pattern.endRecur,
+
+        rrule: pattern.rrule
+    }
+}
+
+export type exceptionDTO = { // 패턴 예외에 관한 모든 정보
+    patternId: string;
+    originalStartAt: Date;
+    isCanceled: boolean;
+    newStartAt: Date;
+    newEndAt: Date;
+} // 예외: 만들기, 조회하기, 수정하기(<- 사실상 삭제 후 새로 만들기)
+
+export type singleLessonDTO = { // 단일 수업에 관한 모든 정보
+    id?: string;
+
+    studentId: string;
+
+    startAt: Date;
+    endAt: Date;
+} // 단일 수업: 만들기, 조회하기, 수정하기, 삭제하기
+
+export type lessonRecordDTO = { // 수업 기록에 관한 모든 정보
+    id?: string;
+
+    studentId: string;
+
+    lessonStartAt: Date;
+
+    progress?: string;
+    homework?: homeworkDTO[];
+    feedback?: string;
+
+} // 기록: 만들기, 수정하기, 조회하기
+
+export type homeworkDTO = { // 숙제에 관한 모든 정보
+    lessonId: string; // LessonRecord id
+
+    content: string;
+
+    status: "ASSIGNED" | "COMPLETED" | "CARRIED_OVER" | "CANCELLED";
+    assignedAt: Date;
+
+    carriedFromId?: string; // 이전 수업에서 넘어온 숙제의 id
+
+
+}

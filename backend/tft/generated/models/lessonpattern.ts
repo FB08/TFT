@@ -29,8 +29,8 @@ export type LessonpatternMinAggregateOutputType = {
   studentId: string | null
   startTime: string | null
   endTime: string | null
-  startDate: Date | null
-  endDate: Date | null
+  startRecur: Date | null
+  endRecur: Date | null
   rrule: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -41,8 +41,8 @@ export type LessonpatternMaxAggregateOutputType = {
   studentId: string | null
   startTime: string | null
   endTime: string | null
-  startDate: Date | null
-  endDate: Date | null
+  startRecur: Date | null
+  endRecur: Date | null
   rrule: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -53,8 +53,8 @@ export type LessonpatternCountAggregateOutputType = {
   studentId: number
   startTime: number
   endTime: number
-  startDate: number
-  endDate: number
+  startRecur: number
+  endRecur: number
   rrule: number
   createdAt: number
   updatedAt: number
@@ -67,8 +67,8 @@ export type LessonpatternMinAggregateInputType = {
   studentId?: true
   startTime?: true
   endTime?: true
-  startDate?: true
-  endDate?: true
+  startRecur?: true
+  endRecur?: true
   rrule?: true
   createdAt?: true
   updatedAt?: true
@@ -79,8 +79,8 @@ export type LessonpatternMaxAggregateInputType = {
   studentId?: true
   startTime?: true
   endTime?: true
-  startDate?: true
-  endDate?: true
+  startRecur?: true
+  endRecur?: true
   rrule?: true
   createdAt?: true
   updatedAt?: true
@@ -91,8 +91,8 @@ export type LessonpatternCountAggregateInputType = {
   studentId?: true
   startTime?: true
   endTime?: true
-  startDate?: true
-  endDate?: true
+  startRecur?: true
+  endRecur?: true
   rrule?: true
   createdAt?: true
   updatedAt?: true
@@ -176,8 +176,8 @@ export type LessonpatternGroupByOutputType = {
   studentId: string
   startTime: string
   endTime: string
-  startDate: Date
-  endDate: Date | null
+  startRecur: Date
+  endRecur: Date | null
   rrule: string
   createdAt: Date
   updatedAt: Date
@@ -209,8 +209,8 @@ export type lessonpatternWhereInput = {
   studentId?: Prisma.StringFilter<"lessonpattern"> | string
   startTime?: Prisma.StringFilter<"lessonpattern"> | string
   endTime?: Prisma.StringFilter<"lessonpattern"> | string
-  startDate?: Prisma.DateTimeFilter<"lessonpattern"> | Date | string
-  endDate?: Prisma.DateTimeNullableFilter<"lessonpattern"> | Date | string | null
+  startRecur?: Prisma.DateTimeFilter<"lessonpattern"> | Date | string
+  endRecur?: Prisma.DateTimeNullableFilter<"lessonpattern"> | Date | string | null
   rrule?: Prisma.StringFilter<"lessonpattern"> | string
   createdAt?: Prisma.DateTimeFilter<"lessonpattern"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"lessonpattern"> | Date | string
@@ -223,8 +223,8 @@ export type lessonpatternOrderByWithRelationInput = {
   studentId?: Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
-  startDate?: Prisma.SortOrder
-  endDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  startRecur?: Prisma.SortOrder
+  endRecur?: Prisma.SortOrderInput | Prisma.SortOrder
   rrule?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -241,8 +241,8 @@ export type lessonpatternWhereUniqueInput = Prisma.AtLeast<{
   studentId?: Prisma.StringFilter<"lessonpattern"> | string
   startTime?: Prisma.StringFilter<"lessonpattern"> | string
   endTime?: Prisma.StringFilter<"lessonpattern"> | string
-  startDate?: Prisma.DateTimeFilter<"lessonpattern"> | Date | string
-  endDate?: Prisma.DateTimeNullableFilter<"lessonpattern"> | Date | string | null
+  startRecur?: Prisma.DateTimeFilter<"lessonpattern"> | Date | string
+  endRecur?: Prisma.DateTimeNullableFilter<"lessonpattern"> | Date | string | null
   rrule?: Prisma.StringFilter<"lessonpattern"> | string
   createdAt?: Prisma.DateTimeFilter<"lessonpattern"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"lessonpattern"> | Date | string
@@ -255,8 +255,8 @@ export type lessonpatternOrderByWithAggregationInput = {
   studentId?: Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
-  startDate?: Prisma.SortOrder
-  endDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  startRecur?: Prisma.SortOrder
+  endRecur?: Prisma.SortOrderInput | Prisma.SortOrder
   rrule?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -273,8 +273,8 @@ export type lessonpatternScalarWhereWithAggregatesInput = {
   studentId?: Prisma.StringWithAggregatesFilter<"lessonpattern"> | string
   startTime?: Prisma.StringWithAggregatesFilter<"lessonpattern"> | string
   endTime?: Prisma.StringWithAggregatesFilter<"lessonpattern"> | string
-  startDate?: Prisma.DateTimeWithAggregatesFilter<"lessonpattern"> | Date | string
-  endDate?: Prisma.DateTimeNullableWithAggregatesFilter<"lessonpattern"> | Date | string | null
+  startRecur?: Prisma.DateTimeWithAggregatesFilter<"lessonpattern"> | Date | string
+  endRecur?: Prisma.DateTimeNullableWithAggregatesFilter<"lessonpattern"> | Date | string | null
   rrule?: Prisma.StringWithAggregatesFilter<"lessonpattern"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"lessonpattern"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"lessonpattern"> | Date | string
@@ -284,8 +284,8 @@ export type lessonpatternCreateInput = {
   id?: string
   startTime: string
   endTime: string
-  startDate: Date | string
-  endDate?: Date | string | null
+  startRecur: Date | string
+  endRecur?: Date | string | null
   rrule: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -298,8 +298,8 @@ export type lessonpatternUncheckedCreateInput = {
   studentId: string
   startTime: string
   endTime: string
-  startDate: Date | string
-  endDate?: Date | string | null
+  startRecur: Date | string
+  endRecur?: Date | string | null
   rrule: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -310,8 +310,8 @@ export type lessonpatternUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startRecur?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endRecur?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rrule?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -324,8 +324,8 @@ export type lessonpatternUncheckedUpdateInput = {
   studentId?: Prisma.StringFieldUpdateOperationsInput | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startRecur?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endRecur?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rrule?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -337,8 +337,8 @@ export type lessonpatternCreateManyInput = {
   studentId: string
   startTime: string
   endTime: string
-  startDate: Date | string
-  endDate?: Date | string | null
+  startRecur: Date | string
+  endRecur?: Date | string | null
   rrule: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -348,8 +348,8 @@ export type lessonpatternUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startRecur?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endRecur?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rrule?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -360,8 +360,8 @@ export type lessonpatternUncheckedUpdateManyInput = {
   studentId?: Prisma.StringFieldUpdateOperationsInput | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startRecur?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endRecur?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rrule?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -383,8 +383,8 @@ export type lessonpatternCountOrderByAggregateInput = {
   studentId?: Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
-  startDate?: Prisma.SortOrder
-  endDate?: Prisma.SortOrder
+  startRecur?: Prisma.SortOrder
+  endRecur?: Prisma.SortOrder
   rrule?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -395,8 +395,8 @@ export type lessonpatternMaxOrderByAggregateInput = {
   studentId?: Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
-  startDate?: Prisma.SortOrder
-  endDate?: Prisma.SortOrder
+  startRecur?: Prisma.SortOrder
+  endRecur?: Prisma.SortOrder
   rrule?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -407,8 +407,8 @@ export type lessonpatternMinOrderByAggregateInput = {
   studentId?: Prisma.SortOrder
   startTime?: Prisma.SortOrder
   endTime?: Prisma.SortOrder
-  startDate?: Prisma.SortOrder
-  endDate?: Prisma.SortOrder
+  startRecur?: Prisma.SortOrder
+  endRecur?: Prisma.SortOrder
   rrule?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -484,8 +484,8 @@ export type lessonpatternCreateWithoutLessonexceptionInput = {
   id?: string
   startTime: string
   endTime: string
-  startDate: Date | string
-  endDate?: Date | string | null
+  startRecur: Date | string
+  endRecur?: Date | string | null
   rrule: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -497,8 +497,8 @@ export type lessonpatternUncheckedCreateWithoutLessonexceptionInput = {
   studentId: string
   startTime: string
   endTime: string
-  startDate: Date | string
-  endDate?: Date | string | null
+  startRecur: Date | string
+  endRecur?: Date | string | null
   rrule: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -524,8 +524,8 @@ export type lessonpatternUpdateWithoutLessonexceptionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startRecur?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endRecur?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rrule?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -537,8 +537,8 @@ export type lessonpatternUncheckedUpdateWithoutLessonexceptionInput = {
   studentId?: Prisma.StringFieldUpdateOperationsInput | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startRecur?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endRecur?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rrule?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -548,8 +548,8 @@ export type lessonpatternCreateWithoutStudentInput = {
   id?: string
   startTime: string
   endTime: string
-  startDate: Date | string
-  endDate?: Date | string | null
+  startRecur: Date | string
+  endRecur?: Date | string | null
   rrule: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -560,8 +560,8 @@ export type lessonpatternUncheckedCreateWithoutStudentInput = {
   id?: string
   startTime: string
   endTime: string
-  startDate: Date | string
-  endDate?: Date | string | null
+  startRecur: Date | string
+  endRecur?: Date | string | null
   rrule: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -602,8 +602,8 @@ export type lessonpatternScalarWhereInput = {
   studentId?: Prisma.StringFilter<"lessonpattern"> | string
   startTime?: Prisma.StringFilter<"lessonpattern"> | string
   endTime?: Prisma.StringFilter<"lessonpattern"> | string
-  startDate?: Prisma.DateTimeFilter<"lessonpattern"> | Date | string
-  endDate?: Prisma.DateTimeNullableFilter<"lessonpattern"> | Date | string | null
+  startRecur?: Prisma.DateTimeFilter<"lessonpattern"> | Date | string
+  endRecur?: Prisma.DateTimeNullableFilter<"lessonpattern"> | Date | string | null
   rrule?: Prisma.StringFilter<"lessonpattern"> | string
   createdAt?: Prisma.DateTimeFilter<"lessonpattern"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"lessonpattern"> | Date | string
@@ -613,8 +613,8 @@ export type lessonpatternCreateManyStudentInput = {
   id?: string
   startTime: string
   endTime: string
-  startDate: Date | string
-  endDate?: Date | string | null
+  startRecur: Date | string
+  endRecur?: Date | string | null
   rrule: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -624,8 +624,8 @@ export type lessonpatternUpdateWithoutStudentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startRecur?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endRecur?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rrule?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -636,8 +636,8 @@ export type lessonpatternUncheckedUpdateWithoutStudentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startRecur?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endRecur?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rrule?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -648,8 +648,8 @@ export type lessonpatternUncheckedUpdateManyWithoutStudentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   startTime?: Prisma.StringFieldUpdateOperationsInput | string
   endTime?: Prisma.StringFieldUpdateOperationsInput | string
-  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startRecur?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endRecur?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   rrule?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -691,8 +691,8 @@ export type lessonpatternSelect<ExtArgs extends runtime.Types.Extensions.Interna
   studentId?: boolean
   startTime?: boolean
   endTime?: boolean
-  startDate?: boolean
-  endDate?: boolean
+  startRecur?: boolean
+  endRecur?: boolean
   rrule?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -708,14 +708,14 @@ export type lessonpatternSelectScalar = {
   studentId?: boolean
   startTime?: boolean
   endTime?: boolean
-  startDate?: boolean
-  endDate?: boolean
+  startRecur?: boolean
+  endRecur?: boolean
   rrule?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type lessonpatternOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studentId" | "startTime" | "endTime" | "startDate" | "endDate" | "rrule" | "createdAt" | "updatedAt", ExtArgs["result"]["lessonpattern"]>
+export type lessonpatternOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studentId" | "startTime" | "endTime" | "startRecur" | "endRecur" | "rrule" | "createdAt" | "updatedAt", ExtArgs["result"]["lessonpattern"]>
 export type lessonpatternInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   lessonexception?: boolean | Prisma.lessonpattern$lessonexceptionArgs<ExtArgs>
   student?: boolean | Prisma.studentDefaultArgs<ExtArgs>
@@ -733,8 +733,8 @@ export type $lessonpatternPayload<ExtArgs extends runtime.Types.Extensions.Inter
     studentId: string
     startTime: string
     endTime: string
-    startDate: Date
-    endDate: Date | null
+    startRecur: Date
+    endRecur: Date | null
     rrule: string
     createdAt: Date
     updatedAt: Date
@@ -1113,8 +1113,8 @@ export interface lessonpatternFieldRefs {
   readonly studentId: Prisma.FieldRef<"lessonpattern", 'String'>
   readonly startTime: Prisma.FieldRef<"lessonpattern", 'String'>
   readonly endTime: Prisma.FieldRef<"lessonpattern", 'String'>
-  readonly startDate: Prisma.FieldRef<"lessonpattern", 'DateTime'>
-  readonly endDate: Prisma.FieldRef<"lessonpattern", 'DateTime'>
+  readonly startRecur: Prisma.FieldRef<"lessonpattern", 'DateTime'>
+  readonly endRecur: Prisma.FieldRef<"lessonpattern", 'DateTime'>
   readonly rrule: Prisma.FieldRef<"lessonpattern", 'String'>
   readonly createdAt: Prisma.FieldRef<"lessonpattern", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"lessonpattern", 'DateTime'>

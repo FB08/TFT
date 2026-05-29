@@ -22,12 +22,16 @@ export class AuthService {
     async createUser(dto: SignUpDto): Promise<User> {
         const { userId, password, name } = dto;
 
-        const existUserId = await this.prisma.user.findUnique({
+        const existUserId = await this.prisma.user.findFirst({
             where: { userId },
         })
 
         if (existUserId) {
-            throw new ConflictException('이미 존재하는 아이디입니다.');
+            if (existUserId.deletedAt){
+                await this.prisma.user.delete({ where: { userId } });
+            }else {
+                throw new ConflictException('이미 존재하는 아이디입니다.');
+            }
         }
 
         const passwordHash = await bcrypt.hash(password, 10);
@@ -57,7 +61,7 @@ export class AuthService {
         if (!user || user.refreshTokenHash !== refreshToken) {
             throw new RefreshTokenInvalidException();
         }
-        const payload: JWTPayload = { id: user.id };
+        const payload: JWTPayload = { id: user.id, userId: user.userId, name: user.name };
         return {
             ...payload,
             access: this.getAccessTokenAndOptions(payload)

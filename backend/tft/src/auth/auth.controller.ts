@@ -41,7 +41,7 @@ export class AuthController {
     }
 
     private async setupTokens(user: User, res: Response) {
-        const payload = { id: user.id };
+        const payload = { id: user.id, userId: user.userId, name: user.name };
         const access = this.authService.getAccessTokenAndOptions(payload);
         const refresh = this.authService.getRefreshTokenAndOptions(payload);
 

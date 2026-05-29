@@ -16,6 +16,8 @@ export class SignUpDto {
 
 export type JWTPayload = {
     id: string;
+    userId: string;
+    name: string;
 }
 
 export type TokenAndCookieOptions = {

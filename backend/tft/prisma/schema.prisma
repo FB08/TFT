@@ -17,10 +17,9 @@ model curriculum {
   difficulty        String?
   memo              String?
   createdAt         DateTime            @default(now())
-  user              user                @relation(fields: [userId], references: [id], map: "Curriculum_userId_fkey")
+  user              user                @relation(fields: [userId], references: [userId])
   curriculumlessons curriculumlessons[]
 
-  @@index([userId], map: "Curriculum_userId_fkey")
 }
 
 model curriculumlessons {
@@ -31,9 +30,7 @@ model curriculumlessons {
   homework     String?
   order        Int
   createdAt    DateTime   @default(now())
-  curriculum   curriculum @relation(fields: [curriculumId], references: [id], map: "CurriculumLessons_curriculumId_fkey")
-
-  @@index([curriculumId], map: "CurriculumLessons_curriculumId_fkey")
+  curriculum   curriculum @relation(fields: [curriculumId], references: [id])
 }
 
 model homework {
@@ -44,12 +41,9 @@ model homework {
   assignedAt     DateTime        @default(now())
   carriedFromId  String?
   createdAt      DateTime        @default(now())
-  homework       homework?       @relation("homeworkTohomework", fields: [carriedFromId], references: [id], map: "Homework_carriedFromId_fkey")
+  homework       homework?       @relation("homeworkTohomework", fields: [carriedFromId], references: [id])
   other_homework homework[]      @relation("homeworkTohomework")
-  lessonrecord   lessonrecord    @relation(fields: [lessonId], references: [id], map: "Homework_lessonId_fkey")
-
-  @@index([carriedFromId], map: "Homework_carriedFromId_fkey")
-  @@index([lessonId], map: "Homework_lessonId_fkey")
+  lessonrecord   lessonrecord    @relation(fields: [lessonId], references: [id])
 }
 
 model lessonexception {
@@ -60,9 +54,7 @@ model lessonexception {
   newStartAt      DateTime
   newEndAt        DateTime?
   createdAt       DateTime      @default(now())
-  lessonpattern   lessonpattern @relation(fields: [patternId], references: [id], map: "LessonException_patternId_fkey")
-
-  @@index([patternId], map: "LessonException_patternId_fkey")
+  lessonpattern   lessonpattern @relation(fields: [patternId], references: [id])
 }
 
 model lessonpattern {
@@ -70,15 +62,13 @@ model lessonpattern {
   studentId       String
   startTime       String
   endTime         String
-  startDate       DateTime
-  endDate         DateTime?
+  startRecur       DateTime
+  endRecur         DateTime?
   rrule           String
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   lessonexception lessonexception[]
-  student         student           @relation(fields: [studentId], references: [id], map: "LessonPattern_studentId_fkey")
-
-  @@index([studentId], map: "LessonPattern_studentId_fkey")
+  student         student           @relation(fields: [studentId], references: [id])
 }
 
 model lessonrecord {
@@ -89,10 +79,8 @@ model lessonrecord {
   feedback      String?
   createdAt     DateTime   @default(now())
   homework      homework[]
-  student       student    @relation(fields: [studentId], references: [id], map: "LessonRecord_studentId_fkey")
+  student       student    @relation(fields: [studentId], references: [id])
   todo          todo[]
-
-  @@index([studentId], map: "LessonRecord_studentId_fkey")
 }
 
 model singlelesson {
@@ -101,9 +89,7 @@ model singlelesson {
   startAt   DateTime
   endAt     DateTime
   createdAt DateTime @default(now())
-  student   student  @relation(fields: [studentId], references: [id], map: "SingleLesson_studentId_fkey")
-
-  @@index([studentId], map: "SingleLesson_studentId_fkey")
+  student   student  @relation(fields: [studentId], references: [id])
 }
 
 model student {
@@ -124,9 +110,7 @@ model student {
   lessonpattern lessonpattern[]
   lessonrecord  lessonrecord[]
   singlelesson  singlelesson[]
-  user          user            @relation(fields: [userId], references: [id], map: "Student_userId_fkey")
-
-  @@index([userId], map: "Student_userId_fkey")
+  user          user            @relation(fields: [userId], references: [userId])
 }
 
 model todo {
@@ -136,16 +120,13 @@ model todo {
   content      String
   until        DateTime?
   createdAt    DateTime      @default(now())
-  lessonrecord lessonrecord? @relation(fields: [lessonId], references: [id], map: "Todo_lessonId_fkey")
-  user         user          @relation(fields: [userId], references: [id], map: "Todo_userId_fkey")
-
-  @@index([lessonId], map: "Todo_lessonId_fkey")
-  @@index([userId], map: "Todo_userId_fkey")
+  lessonrecord lessonrecord? @relation(fields: [lessonId], references: [id])
+  user         user          @relation(fields: [userId], references: [userId])
 }
 
 model user {
   id               String       @id @default(uuid())
-  userId           String       @unique(map: "User_userId_key")
+  userId           String       @unique
   passwordHash     String
   deletedAt        DateTime?
   createdAt        DateTime     @default(now())

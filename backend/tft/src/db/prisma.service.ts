@@ -4,13 +4,7 @@ import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 import { softDeleteExtension } from './prisma.extension';
 
 @Injectable()
-export class PrismaService implements OnModuleInit, OnModuleDestroy {
-  // extends 대신 private 인스턴스로 보유
-  private readonly prisma: ReturnType<PrismaClient['$extends']>;
-
-  // 외부에서 prisma.user.findMany() 식으로 쓸 수 있게 Proxy로 위임
-  [key: string]: any;
-
+export class PrismaService extends PrismaClient implements OnModuleInit {
   constructor() {
     const adapter = new PrismaMariaDb({
       host: 'localhost',
@@ -21,25 +15,18 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
       connectionLimit: 20,
     });
 
-    const client = new PrismaClient({ adapter });
-
-    // extension 적용
-    this.prisma = client.$extends(softDeleteExtension);
-
-    // Proxy로 this.user, this.post 등 모델 접근 위임
-    return new Proxy(this, {
-      get(target, prop) {
-        if (prop in target) return (target as any)[prop];
-        return (target.prisma as any)[prop];
-      },
+    super({
+      adapter,
     });
+
+    return Object.assign(this, this.$extends(softDeleteExtension));
   }
 
   async onModuleInit() {
-    await (this.prisma as any).$connect();
+    await this.$connect();
   }
 
   async onModuleDestroy() {
-    await (this.prisma as any).$disconnect();
+    await this.$disconnect();
   }
 }

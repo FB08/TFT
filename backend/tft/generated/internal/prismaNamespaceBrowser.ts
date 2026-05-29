@@ -138,8 +138,8 @@ export const LessonpatternScalarFieldEnum = {
   studentId: 'studentId',
   startTime: 'startTime',
   endTime: 'endTime',
-  startDate: 'startDate',
-  endDate: 'endDate',
+  startRecur: 'startRecur',
+  endRecur: 'endRecur',
   rrule: 'rrule',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
