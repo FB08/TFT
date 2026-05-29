@@ -10,6 +10,14 @@ export class SinglesService {
     ) {}
     async createSingleLesson(lessoninfo: singleLessonDTO){
         await this.validinfo(lessoninfo);
+        const lesson = await this.prisma.singlelesson.findUnique({
+            where: {
+                studentId_startAt: { studentId: lessoninfo.studentId,
+                    startAt: lessoninfo.startAt
+                }
+            }
+        })
+        if (lesson) throw new BadRequestException('Lesson for the student at that time alreay exists')
         return await this.prisma.singlelesson.create({
             data: {
                 ...lessoninfo

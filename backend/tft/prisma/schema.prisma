@@ -83,6 +83,8 @@ model lessonrecord {
   homework      homework[]
   student       student    @relation(fields: [studentId], references: [id])
   todo          todo[]
+  @@unique([studentId, lessonStartAt], name:"studentId_lessonStartAt")
+
 }
 
 model singlelesson {
@@ -92,6 +94,7 @@ model singlelesson {
   endAt     DateTime
   createdAt DateTime @default(now())
   student   student  @relation(fields: [studentId], references: [id])
+  @@unique([studentId, startAt], name:"studentId_startAt")
 }
 
 model student {

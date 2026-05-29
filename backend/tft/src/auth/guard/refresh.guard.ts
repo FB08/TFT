@@ -11,8 +11,7 @@ export class RefreshAuthGuard extends AuthGuard('refresh') implements CanActivat
         const repsonse = context.switchToHttp().getResponse();
 
         try {
-            const result = await super.canActivate(context);
-            if (!result) return false;
+            await super.canActivate(context);
             
             const user = request.user;
             if (user && 'access' in user) { // refresh token에 의해 access token이 재발급된 경우
@@ -22,10 +21,8 @@ export class RefreshAuthGuard extends AuthGuard('refresh') implements CanActivat
             }
             return true;
         } catch (error) {
-            if (error instanceof RefreshTokenInvalidException) {
-                throw new UnauthorizedException('다시 로그인 해 주세요.');
-            }
-            throw error;
+            throw new UnauthorizedException('다시 로그인 해 주세요.');
+   
         }
     } 
 }

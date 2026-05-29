@@ -197,6 +197,7 @@ export type singlelessonOrderByWithRelationInput = {
 
 export type singlelessonWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  studentId_startAt?: Prisma.singlelessonStudentId_startAtCompoundUniqueInput
   AND?: Prisma.singlelessonWhereInput | Prisma.singlelessonWhereInput[]
   OR?: Prisma.singlelessonWhereInput[]
   NOT?: Prisma.singlelessonWhereInput | Prisma.singlelessonWhereInput[]
@@ -205,7 +206,7 @@ export type singlelessonWhereUniqueInput = Prisma.AtLeast<{
   endAt?: Prisma.DateTimeFilter<"singlelesson"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"singlelesson"> | Date | string
   student?: Prisma.XOR<Prisma.StudentScalarRelationFilter, Prisma.studentWhereInput>
-}, "id">
+}, "id" | "studentId_startAt">
 
 export type singlelessonOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -288,6 +289,11 @@ export type singlelessonOrderByRelevanceInput = {
   fields: Prisma.singlelessonOrderByRelevanceFieldEnum | Prisma.singlelessonOrderByRelevanceFieldEnum[]
   sort: Prisma.SortOrder
   search: string
+}
+
+export type singlelessonStudentId_startAtCompoundUniqueInput = {
+  studentId: string
+  startAt: Date | string
 }
 
 export type singlelessonCountOrderByAggregateInput = {

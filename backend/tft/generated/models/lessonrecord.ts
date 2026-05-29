@@ -210,6 +210,7 @@ export type lessonrecordOrderByWithRelationInput = {
 
 export type lessonrecordWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  studentId_lessonStartAt?: Prisma.lessonrecordStudentId_lessonStartAtCompoundUniqueInput
   AND?: Prisma.lessonrecordWhereInput | Prisma.lessonrecordWhereInput[]
   OR?: Prisma.lessonrecordWhereInput[]
   NOT?: Prisma.lessonrecordWhereInput | Prisma.lessonrecordWhereInput[]
@@ -221,7 +222,7 @@ export type lessonrecordWhereUniqueInput = Prisma.AtLeast<{
   homework?: Prisma.HomeworkListRelationFilter
   student?: Prisma.XOR<Prisma.StudentScalarRelationFilter, Prisma.studentWhereInput>
   todo?: Prisma.TodoListRelationFilter
-}, "id">
+}, "id" | "studentId_lessonStartAt">
 
 export type lessonrecordOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -326,6 +327,11 @@ export type lessonrecordOrderByRelevanceInput = {
   fields: Prisma.lessonrecordOrderByRelevanceFieldEnum | Prisma.lessonrecordOrderByRelevanceFieldEnum[]
   sort: Prisma.SortOrder
   search: string
+}
+
+export type lessonrecordStudentId_lessonStartAtCompoundUniqueInput = {
+  studentId: string
+  lessonStartAt: Date | string
 }
 
 export type lessonrecordCountOrderByAggregateInput = {

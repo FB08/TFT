@@ -101,28 +101,65 @@ export function toSingleLessonDTO(single: any) {
     }
 }
 
-export type lessonRecordDTO = { // 수업 기록에 관한 모든 정보
+export class lessonRecordDTO { // 수업 기록에 관한 모든 정보
+    @IsOptional()
     id?: string;
 
     studentId: string;
 
+    @Type(()=>Date)
     lessonStartAt: Date;
 
+    @IsOptional()
     progress?: string;
+    @IsOptional()
     homework?: homeworkDTO[];
+    @IsOptional()
     feedback?: string;
+    @IsOptional()
+    todo?: todo[];
 
 } // 기록: 만들기, 수정하기, 조회하기
 
-export type homeworkDTO = { // 숙제에 관한 모든 정보
+export function toLessonRecordDTO(records: any) {
+    return {
+        id: records.id,
+        studentId: records.studentId,
+        lessonStartAt: records.lessonStartAt,
+
+        progress: records.progress,
+        homework: records.homework,
+        feedback: records.feedback,
+        todo: records.todo
+    }
+}
+
+export class homeworkDTO { // 숙제에 관한 모든 정보
+    @IsOptional()
+    id?: string;
+
     lessonId: string; // LessonRecord id
 
     content: string;
 
-    status: "ASSIGNED" | "COMPLETED" | "CARRIED_OVER" | "CANCELLED";
-    assignedAt: Date;
+    status: "ASSIGNED" | "COMPLETE" | "CARRIED_OVER" | "CANCELED";
+    @Type(()=>Date)
+    assignedAt?: Date;
 
     carriedFromId?: string; // 이전 수업에서 넘어온 숙제의 id
 
 
+}
+
+export class todo{
+    @IsOptional()
+    id?: string;
+
+    userId: string;
+    lessonId?: string;
+
+    content: string;
+
+    @Type(()=>Date)
+    until?: Date;
 }
