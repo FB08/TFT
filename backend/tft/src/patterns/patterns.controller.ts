@@ -4,7 +4,7 @@ import { JwtAuthGuard } from "src/auth/guard/jwt.guard";
 import { PatternsService } from './patterns.service'
 import { toPatternDTO, patternDTO } from 'src/common/dto/lessons/lessons.dto'
 
-@Controller('patterns')
+@Controller('pattern')
 export class PatternsController {
     constructor(
         private readonly patternsService: PatternsService,

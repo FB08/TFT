@@ -18,25 +18,8 @@ export class PatternsService {
 
     async createPatternForStudent(patterns:patternDTO){
         await this.studentsService.getStudentById(patterns.studentId);
-
-        // const startRecur = patterns.startRecur instanceof Date ? patterns.startRecur : new Date(patterns.startRecur as any);
-        // const endRecur = patterns.endRecur ? (patterns.endRecur instanceof Date ? patterns.endRecur : new Date(patterns.endRecur as any)) : undefined;
-
-        // if (Number.isNaN(startRecur.getTime())) {
-        //     throw new BadRequestException('Invalid startRecur value. YYYY-MM-DD');
-        // }
-        // if (patterns.endRecur && endRecur && Number.isNaN(endRecur.getTime())) {
-        //     throw new BadRequestException('Invalid endRecur value. YYYY-MM-DD');
-        // }
-
         return await this.prisma.lessonpattern.create({
             data: {
-                // studentId: patterns.studentId,
-                // startTime: patterns.startTime,
-                // endTime: patterns.endTime,
-                // startRecur,
-                // endRecur,
-                // rrule: patterns.rrule
                 ...patterns
             }
         })
@@ -45,21 +28,6 @@ export class PatternsService {
     async editPatternByPatternId(patternId: string, patterns:Partial<patternDTO>){
         await this.existPattern(patternId);
 
-        // const data: any = { ...patterns };
-        // if (patterns.startRecur) {
-        //     const startRecur = patterns.startRecur instanceof Date ? patterns.startRecur : new Date(patterns.startRecur as any);
-        //     if (Number.isNaN(startRecur.getTime())) {
-        //         throw new BadRequestException('Invalid startRecur value. Expected an ISO-8601 date string.');
-        //     }
-        //     data.startRecur = startRecur;
-        // }
-        // if (patterns.endRecur) {
-        //     const endRecur = patterns.endRecur instanceof Date ? patterns.endRecur : new Date(patterns.endRecur as any);
-        //     if (Number.isNaN(endRecur.getTime())) {
-        //         throw new BadRequestException('Invalid endRecur value. Expected an ISO-8601 date string.');
-        //     }
-        //     data.endRecur = endRecur;
-        // }
         return await this.prisma.lessonpattern.update({
             where: { id: patternId },
             data : { ...patterns }

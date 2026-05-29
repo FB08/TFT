@@ -3,7 +3,7 @@ import { JwtAuthGuard } from "src/auth/guard/jwt.guard";
 import { exceptionDTO, toExceptionDTO } from "src/common/dto/lessons/lessons.dto";
 import { ExceptionsService } from "./exceptions.service";
 
-@Controller('exceptions')
+@Controller('exception')
 export class ExceptionsController {
     constructor (
         private readonly exceptionsService: ExceptionsService
@@ -21,8 +21,6 @@ export class ExceptionsController {
         const exceptions = await this.exceptionsService.getAllExceptionsByStudentId(studentId);
         return exceptions.map(toExceptionDTO);
     }
-
-    
 
 
 }

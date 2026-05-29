@@ -77,14 +77,29 @@ export function toExceptionDTO(exceptions: any) {
     }
 }
 
-export type singleLessonDTO = { // 단일 수업에 관한 모든 정보
+export class singleLessonDTO { // 단일 수업에 관한 모든 정보
+    @IsOptional()
     id?: string;
 
     studentId: string;
 
+    @Type(()=>Date)
     startAt: Date;
+
+    @Type(()=>Date)
     endAt: Date;
 } // 단일 수업: 만들기, 조회하기, 수정하기, 삭제하기
+
+export function toSingleLessonDTO(single: any) {
+    return {
+        id: single.id,
+
+        studentId: single.studentId,
+
+        startAt: single.startAt,
+        endAt: single.endAt
+    }
+}
 
 export type lessonRecordDTO = { // 수업 기록에 관한 모든 정보
     id?: string;

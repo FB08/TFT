@@ -89,7 +89,7 @@ export class ExceptionsService {
         }
         if (!exceptions.isCanceled){
             // isCanceled==false인데 newStartAt/newEndAt null인지 확인
-            if (!exceptions.newStartAt || !exceptions.newEndAt){
+            if (!exceptions.newStartAt || isNaN(exceptions.newStartAt.getTime())|| !exceptions.newEndAt || isNaN(exceptions.newEndAt.getTime())){
                 throw new BadRequestException('NewStartAt and newEndAt have to be provided.')
             }
             // newStartAt < newEndAt인지 확인
