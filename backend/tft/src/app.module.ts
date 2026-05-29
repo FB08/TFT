@@ -7,9 +7,10 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { StudentsModule } from './students/students.module';
 import { PatternsModule } from './patterns/patterns.module';
+import { ExceptionsModule } from './exceptions/exceptions.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, AuthModule, StudentsModule, UsersModule, PatternsModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, AuthModule, StudentsModule, UsersModule, PatternsModule, ExceptionsModule],
   controllers: [AppController],
   providers: [AppService],
 })

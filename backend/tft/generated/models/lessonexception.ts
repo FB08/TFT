@@ -164,7 +164,7 @@ export type LessonexceptionGroupByOutputType = {
   patternId: string
   originalStartAt: Date
   isCanceled: boolean
-  newStartAt: Date
+  newStartAt: Date | null
   newEndAt: Date | null
   createdAt: Date
   _count: LessonexceptionCountAggregateOutputType | null
@@ -195,7 +195,7 @@ export type lessonexceptionWhereInput = {
   patternId?: Prisma.StringFilter<"lessonexception"> | string
   originalStartAt?: Prisma.DateTimeFilter<"lessonexception"> | Date | string
   isCanceled?: Prisma.BoolFilter<"lessonexception"> | boolean
-  newStartAt?: Prisma.DateTimeFilter<"lessonexception"> | Date | string
+  newStartAt?: Prisma.DateTimeNullableFilter<"lessonexception"> | Date | string | null
   newEndAt?: Prisma.DateTimeNullableFilter<"lessonexception"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"lessonexception"> | Date | string
   lessonpattern?: Prisma.XOR<Prisma.LessonpatternScalarRelationFilter, Prisma.lessonpatternWhereInput>
@@ -206,7 +206,7 @@ export type lessonexceptionOrderByWithRelationInput = {
   patternId?: Prisma.SortOrder
   originalStartAt?: Prisma.SortOrder
   isCanceled?: Prisma.SortOrder
-  newStartAt?: Prisma.SortOrder
+  newStartAt?: Prisma.SortOrderInput | Prisma.SortOrder
   newEndAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   lessonpattern?: Prisma.lessonpatternOrderByWithRelationInput
@@ -215,24 +215,25 @@ export type lessonexceptionOrderByWithRelationInput = {
 
 export type lessonexceptionWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  lessonPatternId_originalStartAt?: Prisma.lessonexceptionLessonPatternId_originalStartAtCompoundUniqueInput
   AND?: Prisma.lessonexceptionWhereInput | Prisma.lessonexceptionWhereInput[]
   OR?: Prisma.lessonexceptionWhereInput[]
   NOT?: Prisma.lessonexceptionWhereInput | Prisma.lessonexceptionWhereInput[]
   patternId?: Prisma.StringFilter<"lessonexception"> | string
   originalStartAt?: Prisma.DateTimeFilter<"lessonexception"> | Date | string
   isCanceled?: Prisma.BoolFilter<"lessonexception"> | boolean
-  newStartAt?: Prisma.DateTimeFilter<"lessonexception"> | Date | string
+  newStartAt?: Prisma.DateTimeNullableFilter<"lessonexception"> | Date | string | null
   newEndAt?: Prisma.DateTimeNullableFilter<"lessonexception"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"lessonexception"> | Date | string
   lessonpattern?: Prisma.XOR<Prisma.LessonpatternScalarRelationFilter, Prisma.lessonpatternWhereInput>
-}, "id">
+}, "id" | "lessonPatternId_originalStartAt">
 
 export type lessonexceptionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   patternId?: Prisma.SortOrder
   originalStartAt?: Prisma.SortOrder
   isCanceled?: Prisma.SortOrder
-  newStartAt?: Prisma.SortOrder
+  newStartAt?: Prisma.SortOrderInput | Prisma.SortOrder
   newEndAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.lessonexceptionCountOrderByAggregateInput
@@ -248,7 +249,7 @@ export type lessonexceptionScalarWhereWithAggregatesInput = {
   patternId?: Prisma.StringWithAggregatesFilter<"lessonexception"> | string
   originalStartAt?: Prisma.DateTimeWithAggregatesFilter<"lessonexception"> | Date | string
   isCanceled?: Prisma.BoolWithAggregatesFilter<"lessonexception"> | boolean
-  newStartAt?: Prisma.DateTimeWithAggregatesFilter<"lessonexception"> | Date | string
+  newStartAt?: Prisma.DateTimeNullableWithAggregatesFilter<"lessonexception"> | Date | string | null
   newEndAt?: Prisma.DateTimeNullableWithAggregatesFilter<"lessonexception"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"lessonexception"> | Date | string
 }
@@ -257,7 +258,7 @@ export type lessonexceptionCreateInput = {
   id?: string
   originalStartAt: Date | string
   isCanceled?: boolean
-  newStartAt: Date | string
+  newStartAt?: Date | string | null
   newEndAt?: Date | string | null
   createdAt?: Date | string
   lessonpattern: Prisma.lessonpatternCreateNestedOneWithoutLessonexceptionInput
@@ -268,7 +269,7 @@ export type lessonexceptionUncheckedCreateInput = {
   patternId: string
   originalStartAt: Date | string
   isCanceled?: boolean
-  newStartAt: Date | string
+  newStartAt?: Date | string | null
   newEndAt?: Date | string | null
   createdAt?: Date | string
 }
@@ -277,7 +278,7 @@ export type lessonexceptionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   originalStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isCanceled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  newStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  newStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   newEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lessonpattern?: Prisma.lessonpatternUpdateOneRequiredWithoutLessonexceptionNestedInput
@@ -288,7 +289,7 @@ export type lessonexceptionUncheckedUpdateInput = {
   patternId?: Prisma.StringFieldUpdateOperationsInput | string
   originalStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isCanceled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  newStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  newStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   newEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -298,7 +299,7 @@ export type lessonexceptionCreateManyInput = {
   patternId: string
   originalStartAt: Date | string
   isCanceled?: boolean
-  newStartAt: Date | string
+  newStartAt?: Date | string | null
   newEndAt?: Date | string | null
   createdAt?: Date | string
 }
@@ -307,7 +308,7 @@ export type lessonexceptionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   originalStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isCanceled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  newStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  newStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   newEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -317,7 +318,7 @@ export type lessonexceptionUncheckedUpdateManyInput = {
   patternId?: Prisma.StringFieldUpdateOperationsInput | string
   originalStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isCanceled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  newStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  newStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   newEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -326,6 +327,11 @@ export type lessonexceptionOrderByRelevanceInput = {
   fields: Prisma.lessonexceptionOrderByRelevanceFieldEnum | Prisma.lessonexceptionOrderByRelevanceFieldEnum[]
   sort: Prisma.SortOrder
   search: string
+}
+
+export type lessonexceptionLessonPatternId_originalStartAtCompoundUniqueInput = {
+  patternId: string
+  originalStartAt: Date | string
 }
 
 export type lessonexceptionCountOrderByAggregateInput = {
@@ -422,7 +428,7 @@ export type lessonexceptionCreateWithoutLessonpatternInput = {
   id?: string
   originalStartAt: Date | string
   isCanceled?: boolean
-  newStartAt: Date | string
+  newStartAt?: Date | string | null
   newEndAt?: Date | string | null
   createdAt?: Date | string
 }
@@ -431,7 +437,7 @@ export type lessonexceptionUncheckedCreateWithoutLessonpatternInput = {
   id?: string
   originalStartAt: Date | string
   isCanceled?: boolean
-  newStartAt: Date | string
+  newStartAt?: Date | string | null
   newEndAt?: Date | string | null
   createdAt?: Date | string
 }
@@ -470,7 +476,7 @@ export type lessonexceptionScalarWhereInput = {
   patternId?: Prisma.StringFilter<"lessonexception"> | string
   originalStartAt?: Prisma.DateTimeFilter<"lessonexception"> | Date | string
   isCanceled?: Prisma.BoolFilter<"lessonexception"> | boolean
-  newStartAt?: Prisma.DateTimeFilter<"lessonexception"> | Date | string
+  newStartAt?: Prisma.DateTimeNullableFilter<"lessonexception"> | Date | string | null
   newEndAt?: Prisma.DateTimeNullableFilter<"lessonexception"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"lessonexception"> | Date | string
 }
@@ -479,7 +485,7 @@ export type lessonexceptionCreateManyLessonpatternInput = {
   id?: string
   originalStartAt: Date | string
   isCanceled?: boolean
-  newStartAt: Date | string
+  newStartAt?: Date | string | null
   newEndAt?: Date | string | null
   createdAt?: Date | string
 }
@@ -488,7 +494,7 @@ export type lessonexceptionUpdateWithoutLessonpatternInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   originalStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isCanceled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  newStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  newStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   newEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -497,7 +503,7 @@ export type lessonexceptionUncheckedUpdateWithoutLessonpatternInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   originalStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isCanceled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  newStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  newStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   newEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -506,7 +512,7 @@ export type lessonexceptionUncheckedUpdateManyWithoutLessonpatternInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   originalStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isCanceled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  newStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  newStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   newEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -551,7 +557,7 @@ export type $lessonexceptionPayload<ExtArgs extends runtime.Types.Extensions.Int
     patternId: string
     originalStartAt: Date
     isCanceled: boolean
-    newStartAt: Date
+    newStartAt: Date | null
     newEndAt: Date | null
     createdAt: Date
   }, ExtArgs["result"]["lessonexception"]>

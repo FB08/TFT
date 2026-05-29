@@ -60,7 +60,6 @@ export class PatternsService {
         //     }
         //     data.endRecur = endRecur;
         // }
-
         return await this.prisma.lessonpattern.update({
             where: { id: patternId },
             data : { ...patterns }

@@ -45,13 +45,37 @@ export function toPatternDTO(pattern: any) {
     }
 }
 
-export type exceptionDTO = { // 패턴 예외에 관한 모든 정보
+export class exceptionDTO { // 패턴 예외에 관한 모든 정보
+    @IsOptional()
+    id?: string;
+
     patternId: string;
+
+    @Type(()=>Date)
     originalStartAt: Date;
     isCanceled: boolean;
-    newStartAt: Date;
-    newEndAt: Date;
+
+    @IsOptional()
+    @Type(() => Date)
+    newStartAt?: Date;
+
+    @IsOptional()
+    @Type(() => Date)
+    newEndAt?: Date;
 } // 예외: 만들기, 조회하기, 수정하기(<- 사실상 삭제 후 새로 만들기)
+
+export function toExceptionDTO(exceptions: any) {
+    return {
+        id: exceptions.id,
+        patterId: exceptions.patternId,
+
+        originalStartAt: exceptions.originalStartAt,
+        isCanceled: exceptions.isCanceled,
+
+        newStartAt: exceptions.newStartAt,
+        newEndAt: exceptions.newEndAt
+    }
+}
 
 export type singleLessonDTO = { // 단일 수업에 관한 모든 정보
     id?: string;

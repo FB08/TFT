@@ -51,10 +51,12 @@ model lessonexception {
   patternId       String
   originalStartAt DateTime
   isCanceled      Boolean       @default(false)
-  newStartAt      DateTime
+  newStartAt      DateTime?
   newEndAt        DateTime?
   createdAt       DateTime      @default(now())
   lessonpattern   lessonpattern @relation(fields: [patternId], references: [id])
+  @@unique([patternId, originalStartAt], name: "lessonPatternId_originalStartAt")
+
 }
 
 model lessonpattern {

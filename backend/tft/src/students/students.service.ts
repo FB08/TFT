@@ -1,20 +1,24 @@
 import { StudentDetailDTO } from "src/common/dto/students/students.dto";
 import { PrismaService } from "src/db/prisma.service";
 import { Injectable, NotFoundException } from "@nestjs/common";
+import { UsersService } from "src/users/users.service"
 
 @Injectable()
 export class StudentsService {
     constructor(
-        private prisma: PrismaService
+        private prisma: PrismaService,
+        private readonly usersService: UsersService
     ) {}
 
     async getAllStudentsByUserId(userId: string) {
+        await this.usersService.getByUserId(userId);
         return await this.prisma.student.findMany({
             where: { userId },
         });
     }
 
     async createStudentForUser(userId: string, body: StudentDetailDTO) {
+        await this.usersService.getByUserId(userId);
         return await this.prisma.student.create({
             data: {
                 ...body, 
